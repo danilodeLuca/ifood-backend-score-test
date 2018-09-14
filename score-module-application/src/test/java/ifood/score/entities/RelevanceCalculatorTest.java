@@ -30,7 +30,7 @@ public class RelevanceCalculatorTest {
         Assert.assertEquals(BigDecimal.valueOf(58.131835890).setScale(RelevanceCalculator.RELEVANCE_SCALE), relevance);
     }
 
-    private RelevanceCalculator getPizzaExampleRelevance() {
+    public static RelevanceCalculator getPizzaExampleRelevance() {
         int itemsQuantity = 2; // totals of pizza in example
         int totalItemsOrder = 5; // totals of itens 2 pizza + 3 vegan
         BigDecimal sumItemPrice = BigDecimal.valueOf(49);// 1*26+1*23
