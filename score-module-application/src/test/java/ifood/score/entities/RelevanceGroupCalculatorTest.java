@@ -40,7 +40,7 @@ public class RelevanceGroupCalculatorTest {
         return new RelevanceCalculator(itemsQuantity, totalItemsOrder, sumItemPrice, orderPrice) {
             @Override
             public BigDecimal calcRelevance() {
-                return BigDecimal.valueOf(13.8).setScale(RelevanceCalculator.RELEVANCE_SCALE, RoundingMode.HALF_EVEN);
+                return BigDecimal.valueOf(13.8).setScale(RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
             }
         };
     }

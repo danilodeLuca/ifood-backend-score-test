@@ -2,6 +2,7 @@ package ifood.score.order;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 import ifood.score.menu.Category;
@@ -15,14 +16,19 @@ import lombok.ToString;
 @Setter
 @RequiredArgsConstructor
 @ToString
-@EqualsAndHashCode(of={"quantity", "menuUuid"})
+@EqualsAndHashCode(of = {"quantity", "menuUuid"})
 public class Item implements Serializable {
-	
-	private static final long serialVersionUID = 4164408761280047513L;
-	
-	private Integer quantity;
-	private UUID menuUuid;
-	private BigDecimal menuUnitPrice;
-	private Category menuCategory;
-	
+
+    private static final long serialVersionUID = 4164408761280047513L;
+
+    private Integer quantity;
+    private UUID menuUuid;
+    private BigDecimal menuUnitPrice;
+    private Category menuCategory;
+
+    public BigDecimal getTotal() {
+        return getMenuUnitPrice().multiply(BigDecimal.valueOf(getQuantity()))
+                .setScale(9, RoundingMode.HALF_EVEN);
+    }
+
 }
