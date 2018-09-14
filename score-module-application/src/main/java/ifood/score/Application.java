@@ -26,8 +26,4 @@ public class Application {
 		SpringApplication.run(Application.class);
 	}
 
-//	@Bean
-//	public RouterFunction<ServerResponse> monoRouterFunction(EchoHandler echoHandler) {
-//		return route(POST("/echo"), echoHandler::echo);
-//	}
 }
