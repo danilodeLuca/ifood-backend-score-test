@@ -39,15 +39,16 @@ public class OrderCheckoutTest {
     @Test
     public void testQueues() throws InterruptedException {
         Order order = picker.pick();
-        jmsTemplate.convertAndSend(cancelQueue, order);
+        jmsTemplate.convertAndSend(cancelQueue, order.getUuid());
 
         Order order2 = picker.pick();
         jmsTemplate.convertAndSend(checkoutQueue, order2);
 
         boolean hasMessages = true;
+        int count = 0;
         do {
             Integer allMessages = messagesToProcess(cancelQueue) + messagesToProcess(checkoutQueue);
-            if (allMessages <= 0) {
+            if (allMessages <= 0 || count > 5) {
                 hasMessages = false;
             } else {
                 System.out.println("woops some messages were not completed");
