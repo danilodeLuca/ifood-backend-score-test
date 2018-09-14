@@ -13,8 +13,7 @@ public class RelevanceGroupCalculatorTest {
     @Test
     public void testRelevanceGroupCalculatorOneItem() {
         RelevanceCalculator pizza = RelevanceCalculatorTest.getPizzaExampleRelevance();
-        List<RelevanceCalculator> itemsRelevances = Arrays.asList(pizza);
-        RelevanceGroupCalculator relevanceGroupCalculator = new RelevanceGroupCalculator(itemsRelevances);
+        RelevanceGroupCalculator relevanceGroupCalculator = new RelevanceGroupCalculator(Arrays.asList(pizza));
 
         Assert.assertEquals(pizza.calcRelevance(), relevanceGroupCalculator.calcScore());
     }

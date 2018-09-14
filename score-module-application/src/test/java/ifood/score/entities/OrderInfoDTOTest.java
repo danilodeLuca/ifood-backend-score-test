@@ -19,8 +19,8 @@ public class OrderInfoDTOTest {
         order.setItems(Arrays.asList(item));
 
         OrderInfoDTO orderInfoDTO = new OrderInfoDTO(order);
-        Assert.assertEquals(3, orderInfoDTO.getSizeOrderItems().intValue());
-        Assert.assertEquals(BigDecimal.valueOf(300), orderInfoDTO.getTotalOrderPrice().setScale(0));
+        Assert.assertEquals(3, orderInfoDTO.getSize().intValue());
+        Assert.assertEquals(BigDecimal.valueOf(300), orderInfoDTO.getTotalPrice().setScale(0));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class OrderInfoDTOTest {
         order.setItems(Arrays.asList(item, item2));
 
         OrderInfoDTO orderInfoDTO = new OrderInfoDTO(order);
-        Assert.assertEquals(8, orderInfoDTO.getSizeOrderItems().intValue());
-        Assert.assertEquals(BigDecimal.valueOf(400), orderInfoDTO.getTotalOrderPrice().setScale(0));
+        Assert.assertEquals(8, orderInfoDTO.getSize().intValue());
+        Assert.assertEquals(BigDecimal.valueOf(400), orderInfoDTO.getTotalPrice().setScale(0));
     }
 }

@@ -2,11 +2,15 @@ package ifood.score.entities;
 
 import ifood.score.order.Item;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
+import java.util.List;
 
 @AllArgsConstructor
+@Getter
 public class RelevanceCalculator {
 
     public static final BigDecimal RELEVANCE_MULTIPLIER = BigDecimal.valueOf(10000);
@@ -18,10 +22,14 @@ public class RelevanceCalculator {
     private BigDecimal sumItemPrice;
     private BigDecimal orderPrice;
 
-    public static RelevanceCalculator fromItem(Item item, OrderInfoDTO orderDTO) {
-        BigDecimal totalItem = item.getTotal();
-        return new RelevanceCalculator(item.getQuantity(), orderDTO.getSizeOrderItems(),
-                totalItem, orderDTO.getTotalOrderPrice());
+    public static RelevanceCalculator fromItem(ItemInfoDTO item, OrderInfoDTO orderDTO) {
+        return new RelevanceCalculator(item.getSize(), orderDTO.getSize(),
+                item.getTotalPrice(), orderDTO.getTotalPrice());
+    }
+
+    public static RelevanceCalculator fromItems(List<Item> items, OrderInfoDTO orderDTO) {
+        ItemInfoDTO itemInfoDTO = new ItemInfoDTO(items);
+        return RelevanceCalculator.fromItem(itemInfoDTO, orderDTO);
     }
 
     public BigDecimal calcIQ() {

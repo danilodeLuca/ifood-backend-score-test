@@ -1,16 +1,16 @@
 package ifood.score.entities;
 
 import ifood.score.order.Item;
-import ifood.score.order.Order;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
-public class OrderInfoDTO extends CommonInfoDTO {
+public class ItemInfoDTO extends CommonInfoDTO {
 
-    public OrderInfoDTO(Order order) {
-        super(order.getItems().stream().mapToInt(Item::getQuantity).sum(), order.getItems().stream()
+    public ItemInfoDTO(List<Item> list) {
+        super(list.stream().mapToInt(Item::getQuantity).sum(), list.stream()
                 .map(Item::getTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
     }
