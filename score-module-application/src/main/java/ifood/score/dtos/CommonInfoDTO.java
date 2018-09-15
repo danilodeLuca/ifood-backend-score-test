@@ -1,4 +1,4 @@
-package ifood.score.entities;
+package ifood.score.dtos;
 
 import lombok.Data;
 

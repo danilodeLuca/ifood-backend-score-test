@@ -1,12 +1,13 @@
 package ifood.score.entities;
 
+import ifood.score.dtos.ItemInfoDTO;
+import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.order.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
 import java.util.List;
 
 @AllArgsConstructor

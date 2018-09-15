@@ -1,5 +1,6 @@
 package ifood.score.entities;
 
+import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.order.Item;
 import ifood.score.order.Order;
 import org.junit.Assert;

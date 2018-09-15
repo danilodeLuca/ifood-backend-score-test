@@ -1,4 +1,4 @@
-package ifood.score.entities;
+package ifood.score.dtos;
 
 import ifood.score.order.Item;
 import ifood.score.order.Order;

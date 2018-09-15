@@ -16,6 +16,7 @@ public class OrderListener {
             containerFactory = "jmsListenerFactory")
     public void orderCheckout(Order order) {
         System.out.println("Order Received:" + order);
+        orderRelevanceService.calculateOrderRelevance(order);
     }
 
     @JmsListener(destination = "${queue.order.cancel.name}", concurrency = "1-50")

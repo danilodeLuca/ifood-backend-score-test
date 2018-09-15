@@ -1,5 +1,7 @@
 package ifood.score.entities;
 
+import ifood.score.builders.RelevanceOrderBuilder;
+import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.exceptions.NoItemsInOrderException;
 import ifood.score.menu.Category;
 import ifood.score.order.Item;
