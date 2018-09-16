@@ -2,6 +2,7 @@ package ifood.score.builders;
 
 import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.entities.RelevanceCalculator;
+import ifood.score.entities.RelevanceOrder;
 import ifood.score.exceptions.NoItemsInOrderException;
 import ifood.score.menu.Category;
 import ifood.score.order.Item;
@@ -42,6 +43,13 @@ public class RelevanceOrderBuilder {
         mapMenuRelevance = collectMapByFunction(Item::getMenuUuid);
         mapCategoryRelevance = collectMapByFunction(Item::getMenuCategory);
         return this;
+    }
+
+    public RelevanceOrder getRelevanceOrder() {
+        RelevanceOrder relevanceOrder = new RelevanceOrder();
+        relevanceOrder.setConfirmationDate(order.getConfirmedAt());
+        relevanceOrder.setOrderId(order.getUuid());
+        return relevanceOrder;
     }
 
     private <T> Map<T, RelevanceCalculator> collectMapByFunction(Function<Item, T> groupingByMenuUUId) {

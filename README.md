@@ -20,7 +20,7 @@ We also would like you to check our module `score-order-generator` and give us a
 * Data Structures
 * Code organization
 
-Fork this repository and submit your code.
+Fork this repository and submit your httpStatus.
 
 ## Business Rules
 

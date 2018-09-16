@@ -31,7 +31,7 @@ public class RelevanceGroupCalculatorTest {
         Assert.assertEquals(BigDecimal.valueOf(35.965917945), relevanceGroupCalculator.calcScore());
     }
 
-    private RelevanceCalculator getPizzaRelevanceSecondCase() {
+    public static RelevanceCalculator getPizzaRelevanceSecondCase() {
         int itemsQuantity = 138;
         int totalItemsOrder = 1;
         BigDecimal sumItemPrice = BigDecimal.valueOf(1000);
