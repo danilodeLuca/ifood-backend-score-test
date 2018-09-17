@@ -1,16 +1,14 @@
 package ifood.score.services;
 
 import ifood.score.config.BaseTest;
-import ifood.score.entities.CategoryScore;
-import ifood.score.entities.MenuItemScore;
-import ifood.score.entities.RelevanceOrder;
-import ifood.score.entities.RelevanceOrderItem;
+import ifood.score.entities.*;
 import ifood.score.menu.Category;
 import ifood.score.mock.generator.order.OrderPicker;
 import ifood.score.order.Order;
 import ifood.score.repositories.CategoryScoreRepository;
 import ifood.score.repositories.MenuItemScoreRepository;
 import ifood.score.repositories.RelevanceOrderRepository;
+import ifood.score.utils.MathUtils;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static ifood.score.utils.MathUtils.scale;
 
 public class OrderRelevanceServiceTest extends BaseTest {
 
@@ -72,14 +72,14 @@ public class OrderRelevanceServiceTest extends BaseTest {
         categoryMap.keySet().forEach(k -> {
             CategoryScore categoryScore = categoryScoreRepository.findById(k).get();
             Assert.assertNotNull(categoryScore.getRelevance());
-            Assert.assertEquals(BigDecimal.ZERO, categoryScore.getRelevance());
+            Assert.assertEquals(scale(BigDecimal.ZERO), categoryScore.getRelevance());
         });
 
         menuMap = orderSaved.getRelevances().stream().filter(i -> i.getMenuId() != null).collect(Collectors.groupingBy(RelevanceOrderItem::getMenuId));
         menuMap.keySet().forEach(k -> {
             MenuItemScore menuScore = menuItemScoreRepository.findById(k).get();
             Assert.assertNotNull(menuScore.getRelevance());
-            Assert.assertEquals(BigDecimal.ZERO, menuScore.getRelevance());
+            Assert.assertEquals(scale(BigDecimal.ZERO), menuScore.getRelevance());
         });
     }
 

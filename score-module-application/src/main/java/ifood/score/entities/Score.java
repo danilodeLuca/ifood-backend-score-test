@@ -1,10 +1,13 @@
 package ifood.score.entities;
 
+import ifood.score.utils.MathUtils;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import static ifood.score.utils.MathUtils.scale;
 
 @Data
 public class Score<T> {
@@ -18,7 +21,7 @@ public class Score<T> {
 
     public Score(T id) {
         this.id = id;
-        this.relevance = BigDecimal.ZERO.setScale(RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+        this.relevance = scale(BigDecimal.ZERO);
         this.quantityItems = 0;
     }
 
@@ -36,14 +39,14 @@ public class Score<T> {
 
     private void recalculate(BigDecimal newTotal) {
         if (quantityItems > 0)
-            this.relevance = newTotal.divide(BigDecimal.valueOf(quantityItems), RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+            this.relevance = newTotal.divide(BigDecimal.valueOf(quantityItems), MathUtils.RELEVANCE_SCALE, MathUtils.ROUND_MODE);
         else {
-            this.relevance = BigDecimal.ZERO.setScale(RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+            this.relevance = scale(BigDecimal.ZERO);
         }
     }
 
     public BigDecimal totalRelevances() {
-        return relevance.multiply(BigDecimal.valueOf(quantityItems)).setScale(RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+        return scale(relevance.multiply(BigDecimal.valueOf(quantityItems)));
     }
 
     public void decomposeWith(List<RelevanceOrderItem> values) {

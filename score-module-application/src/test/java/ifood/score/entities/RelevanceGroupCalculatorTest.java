@@ -1,12 +1,14 @@
 package ifood.score.entities;
 
+import ifood.score.utils.MathUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+
+import static ifood.score.utils.MathUtils.scale;
 
 public class RelevanceGroupCalculatorTest {
 
@@ -23,7 +25,7 @@ public class RelevanceGroupCalculatorTest {
         RelevanceCalculator pizza = RelevanceCalculatorTest.getPizzaExampleRelevance();
         RelevanceCalculator pizza2 = getPizzaRelevanceSecondCase();
 
-        Assert.assertEquals(BigDecimal.valueOf(13.8).setScale(RelevanceCalculator.RELEVANCE_SCALE), pizza2.calcRelevance());
+        Assert.assertEquals(scale(BigDecimal.valueOf(13.8)), pizza2.calcRelevance());
 
         List<RelevanceCalculator> itemsRelevances = Arrays.asList(pizza, pizza2);
         RelevanceGroupCalculator relevanceGroupCalculator = new RelevanceGroupCalculator(itemsRelevances);
@@ -39,7 +41,7 @@ public class RelevanceGroupCalculatorTest {
         return new RelevanceCalculator(itemsQuantity, totalItemsOrder, sumItemPrice, orderPrice) {
             @Override
             public BigDecimal calcRelevance() {
-                return BigDecimal.valueOf(13.8).setScale(RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+                return scale(BigDecimal.valueOf(13.8));
             }
         };
     }

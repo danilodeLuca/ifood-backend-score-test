@@ -1,5 +1,6 @@
 package ifood.score.entities;
 
+import ifood.score.utils.MathUtils;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ public class RelevanceGroupCalculator {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         BigDecimal size = BigDecimal.valueOf(itemsRelevances.size());
-        return totalRelevances.divide(size, RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+        return totalRelevances.divide(size, MathUtils.RELEVANCE_SCALE, MathUtils.ROUND_MODE);
     }
 
 }

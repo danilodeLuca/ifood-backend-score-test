@@ -2,7 +2,7 @@
 .settings
 .classpath
 target
-activemq/data*
+env_setup/data*
 
 ### IntelliJ IDEA ###
 .idea

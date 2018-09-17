@@ -3,13 +3,15 @@ package ifood.score.entities;
 import ifood.score.dtos.ItemInfoDTO;
 import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.order.Item;
+import ifood.score.utils.MathUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
+
+import static ifood.score.utils.MathUtils.scale;
 
 @AllArgsConstructor
 @Getter
@@ -17,8 +19,6 @@ import java.util.List;
 public class RelevanceCalculator {
 
     public static final BigDecimal RELEVANCE_MULTIPLIER = BigDecimal.valueOf(10000);
-    public static final int RELEVANCE_SCALE = 9;
-    public static final RoundingMode ROUND_MODE = RoundingMode.HALF_EVEN;
 
     private Integer itemsQuantity;
     private Integer totalItemsOrder;
@@ -41,12 +41,12 @@ public class RelevanceCalculator {
     }
 
     public BigDecimal calcIP() {
-        return sumItemPrice.divide(orderPrice, RELEVANCE_SCALE, ROUND_MODE);
+        return sumItemPrice.divide(orderPrice, MathUtils.RELEVANCE_SCALE, MathUtils.ROUND_MODE);
     }
 
     public BigDecimal calcRelevance() {
         Double sqrt = Math.sqrt(calcIQ().multiply(calcIP()).multiply(RELEVANCE_MULTIPLIER).doubleValue());
-        return BigDecimal.valueOf(sqrt).setScale(RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+        return scale(BigDecimal.valueOf(sqrt));
     }
 
 }

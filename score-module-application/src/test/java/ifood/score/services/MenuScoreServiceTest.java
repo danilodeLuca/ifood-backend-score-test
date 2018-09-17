@@ -4,6 +4,7 @@ import ifood.score.config.BaseTest;
 import ifood.score.entities.MenuItemScore;
 import ifood.score.exceptions.MenuItemScoreNotFoundException;
 import ifood.score.repositories.MenuItemScoreRepository;
+import ifood.score.utils.MathUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+
+import static ifood.score.utils.MathUtils.scale;
 
 public class MenuScoreServiceTest extends BaseTest {
 
@@ -33,7 +36,7 @@ public class MenuScoreServiceTest extends BaseTest {
         menu = repository.save(menu);
 
         MenuItemScore menuItemScoreById = service.findMenuItemScoreById(id);
-        Assert.assertEquals(BigDecimal.ZERO, menuItemScoreById.totalRelevances());
+        Assert.assertEquals(scale(BigDecimal.ZERO), menuItemScoreById.totalRelevances());
     }
 
     @Test

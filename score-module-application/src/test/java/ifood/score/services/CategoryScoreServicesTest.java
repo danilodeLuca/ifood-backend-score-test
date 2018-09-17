@@ -5,12 +5,15 @@ import ifood.score.entities.CategoryScore;
 import ifood.score.exceptions.CategoryScoreNotFoundException;
 import ifood.score.menu.Category;
 import ifood.score.repositories.CategoryScoreRepository;
+import ifood.score.utils.MathUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+
+import static ifood.score.utils.MathUtils.scale;
 
 public class CategoryScoreServicesTest extends BaseTest {
 
@@ -39,6 +42,6 @@ public class CategoryScoreServicesTest extends BaseTest {
         CategoryScore save = categoryScoreRepository.save(categoryScore);
 
         CategoryScore saved = service.findById(Category.PIZZA);
-        Assert.assertEquals(BigDecimal.ZERO, saved.totalRelevances());
+        Assert.assertEquals(scale(BigDecimal.ZERO), saved.totalRelevances());
     }
 }

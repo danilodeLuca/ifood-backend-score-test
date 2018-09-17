@@ -4,11 +4,14 @@ import ifood.score.dtos.ItemInfoDTO;
 import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.order.Item;
 import ifood.score.order.Order;
+import ifood.score.utils.MathUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+
+import static ifood.score.utils.MathUtils.scale;
 
 public class RelevanceCalculatorTest {
 
@@ -32,7 +35,7 @@ public class RelevanceCalculatorTest {
     public void testRelevance() {
         RelevanceCalculator pizzaExampleRelevance = getPizzaExampleRelevance();
         BigDecimal relevance = pizzaExampleRelevance.calcRelevance();
-        Assert.assertEquals(BigDecimal.valueOf(58.131835890).setScale(RelevanceCalculator.RELEVANCE_SCALE), relevance);
+        Assert.assertEquals(scale(BigDecimal.valueOf(58.131835890)), relevance);
     }
 
     public static RelevanceCalculator getPizzaExampleRelevance() {
