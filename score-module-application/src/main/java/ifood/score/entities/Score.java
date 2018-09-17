@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public abstract class Score<T> {
+public class Score<T> {
 
     @Id
     protected T id;
