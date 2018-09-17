@@ -19,7 +19,7 @@ public class ScoreTest {
 
         categoryScore.composeWith(Arrays.asList(RelevanceOrderItem.fromCategory(Category.BRAZILIAN, pizzaExampleRelevance)));
 
-        Assert.assertEquals(pizzaExampleRelevance.calcRelevance(), categoryScore.value);
+        Assert.assertEquals(pizzaExampleRelevance.calcRelevance(), categoryScore.relevance);
     }
 
     @Test
@@ -31,13 +31,13 @@ public class ScoreTest {
         categoryScore.composeWith(Arrays.asList(RelevanceOrderItem.fromCategory(Category.BRAZILIAN, pizzaExampleRelevance)));
         Assert.assertEquals(BigDecimal.valueOf(58.131835890).setScale(RelevanceCalculator.RELEVANCE_SCALE),
                 pizzaExampleRelevance.calcRelevance());
-        Assert.assertEquals(pizzaExampleRelevance.calcRelevance(), categoryScore.getValue());
+        Assert.assertEquals(pizzaExampleRelevance.calcRelevance(), categoryScore.getRelevance());
 
         categoryScore.composeWith(Arrays.asList(RelevanceOrderItem.fromCategory(Category.BRAZILIAN, pizzaExampleRelevance2)));
         Assert.assertEquals(BigDecimal.valueOf(13.8).setScale(RelevanceCalculator.RELEVANCE_SCALE),
                 pizzaExampleRelevance2.calcRelevance());
 
-        Assert.assertEquals(BigDecimal.valueOf(35.965917945).setScale(RelevanceCalculator.RELEVANCE_SCALE), categoryScore.getValue());
+        Assert.assertEquals(BigDecimal.valueOf(35.965917945).setScale(RelevanceCalculator.RELEVANCE_SCALE), categoryScore.getRelevance());
 
     }
 
@@ -51,6 +51,6 @@ public class ScoreTest {
                 pizzaExampleRelevance.calcRelevance());
 
         categoryScore.decomposeWith(RelevanceOrderItem.fromCategory(Category.BRAZILIAN, pizzaExampleRelevance));
-        Assert.assertEquals(BigDecimal.ZERO, categoryScore.getValue());
+        Assert.assertEquals(BigDecimal.ZERO, categoryScore.getRelevance());
     }
 }

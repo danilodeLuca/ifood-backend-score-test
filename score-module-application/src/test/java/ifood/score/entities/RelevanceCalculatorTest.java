@@ -1,9 +1,14 @@
 package ifood.score.entities;
 
+import ifood.score.dtos.ItemInfoDTO;
+import ifood.score.dtos.OrderInfoDTO;
+import ifood.score.order.Item;
+import ifood.score.order.Order;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public class RelevanceCalculatorTest {
 
@@ -36,5 +41,19 @@ public class RelevanceCalculatorTest {
         BigDecimal sumItemPrice = BigDecimal.valueOf(49);// 1*26+1*23
         BigDecimal orderPrice = BigDecimal.valueOf(58);// 1*26+1*23+3*3
         return new RelevanceCalculator(itemsQuantity, totalItemsOrder, sumItemPrice, orderPrice);
+    }
+
+    @Test
+    public void testResult() {
+        Item item = new Item();
+        item.setQuantity(1);
+        item.setMenuUnitPrice(BigDecimal.valueOf(20));
+        ItemInfoDTO itemDTO = new ItemInfoDTO(Arrays.asList(item));
+
+        Order order = new Order();
+        order.setItems(Arrays.asList(item));
+        OrderInfoDTO orderDTO = new OrderInfoDTO(order);
+        RelevanceCalculator a = RelevanceCalculator.fromItem(itemDTO, orderDTO);
+
     }
 }

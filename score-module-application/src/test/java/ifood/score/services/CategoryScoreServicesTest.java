@@ -39,6 +39,6 @@ public class CategoryScoreServicesTest extends BaseTest {
         CategoryScore save = categoryScoreRepository.save(categoryScore);
 
         CategoryScore saved = service.findById(Category.PIZZA);
-        Assert.assertEquals(BigDecimal.ZERO, saved.getTotalRelevances());
+        Assert.assertEquals(BigDecimal.ZERO, saved.totalRelevances());
     }
 }

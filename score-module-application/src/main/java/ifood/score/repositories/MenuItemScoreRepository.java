@@ -7,4 +7,5 @@ import java.util.UUID;
 
 @Repository
 public interface MenuItemScoreRepository extends ScoreRepository<MenuItemScore, UUID> {
+
 }

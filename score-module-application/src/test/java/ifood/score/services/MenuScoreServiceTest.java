@@ -1,16 +1,16 @@
 package ifood.score.services;
 
 import ifood.score.config.BaseTest;
-import ifood.score.entities.CategoryScore;
 import ifood.score.entities.MenuItemScore;
 import ifood.score.exceptions.MenuItemScoreNotFoundException;
-import ifood.score.menu.Category;
 import ifood.score.repositories.MenuItemScoreRepository;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 public class MenuScoreServiceTest extends BaseTest {
@@ -33,7 +33,22 @@ public class MenuScoreServiceTest extends BaseTest {
         menu = repository.save(menu);
 
         MenuItemScore menuItemScoreById = service.findMenuItemScoreById(id);
-        Assert.assertEquals(BigDecimal.ZERO, menuItemScoreById.getTotalRelevances());
+        Assert.assertEquals(BigDecimal.ZERO, menuItemScoreById.totalRelevances());
+    }
+
+    @Test
+    @Ignore //With embedded mongo it does not work well
+    public void testFindAbove() {
+        UUID id = UUID.randomUUID();
+        MenuItemScore menu = new MenuItemScore(id);
+        menu.setRelevance(BigDecimal.valueOf(100));
+        menu = repository.save(menu);
+
+        MenuItemScore menuItemScoreById = service.findMenuItemScoreById(id);
+        Assert.assertEquals(BigDecimal.valueOf(100), menuItemScoreById.getRelevance());
+
+        List<MenuItemScore> menuItemScores = service.scoreAbove(BigDecimal.valueOf(40));
+        Assert.assertEquals(1, menuItemScores.size());
     }
 
 }

@@ -96,7 +96,7 @@ second order with `Pizza` relevance equals to `13.8` the Score would be `35.9659
 ## Non functional requirements
 
 Your service(s) must be resilient, fault tolerant, responsive. You should prepare it/them to be highly scalable as possible.
-The score update rate should be closest possible to "real-time", balancing your choices in order to achieve the expected
+The score update relevance should be closest possible to "real-time", balancing your choices in order to achieve the expected
 scalability.
 
 ## Constraints

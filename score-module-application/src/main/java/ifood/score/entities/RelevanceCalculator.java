@@ -5,6 +5,7 @@ import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.order.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
+@ToString
 public class RelevanceCalculator {
 
     public static final BigDecimal RELEVANCE_MULTIPLIER = BigDecimal.valueOf(10000);

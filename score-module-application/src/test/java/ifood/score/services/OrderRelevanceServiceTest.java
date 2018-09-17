@@ -52,15 +52,15 @@ public class OrderRelevanceServiceTest extends BaseTest {
         Map<Category, List<RelevanceOrderItem>> categoryMap = orderSaved.getRelevances().stream().filter(i -> i.getCategory() != null).collect(Collectors.groupingBy(RelevanceOrderItem::getCategory));
         categoryMap.keySet().forEach(k -> {
             CategoryScore categoryScore = categoryScoreRepository.findById(k).get();
-            Assert.assertNotNull(categoryScore.getValue());
-            Assert.assertNotEquals(BigDecimal.ZERO, categoryScore.getValue());
+            Assert.assertNotNull(categoryScore.getRelevance());
+            Assert.assertNotEquals(BigDecimal.ZERO, categoryScore.getRelevance());
         });
 
         Map<UUID, List<RelevanceOrderItem>> menuMap = orderSaved.getRelevances().stream().filter(i -> i.getMenuId() != null).collect(Collectors.groupingBy(RelevanceOrderItem::getMenuId));
         menuMap.keySet().forEach(k -> {
             MenuItemScore menuScore = menuItemScoreRepository.findById(k).get();
-            Assert.assertNotNull(menuScore.getValue());
-            Assert.assertNotEquals(BigDecimal.ZERO, menuScore.getValue());
+            Assert.assertNotNull(menuScore.getRelevance());
+            Assert.assertNotEquals(BigDecimal.ZERO, menuScore.getRelevance());
         });
 
         service.cancelOrder(order.getUuid().toString());
@@ -71,15 +71,15 @@ public class OrderRelevanceServiceTest extends BaseTest {
         categoryMap = orderSaved.getRelevances().stream().filter(i -> i.getCategory() != null).collect(Collectors.groupingBy(RelevanceOrderItem::getCategory));
         categoryMap.keySet().forEach(k -> {
             CategoryScore categoryScore = categoryScoreRepository.findById(k).get();
-            Assert.assertNotNull(categoryScore.getValue());
-            Assert.assertEquals(BigDecimal.ZERO, categoryScore.getValue());
+            Assert.assertNotNull(categoryScore.getRelevance());
+            Assert.assertEquals(BigDecimal.ZERO, categoryScore.getRelevance());
         });
 
         menuMap = orderSaved.getRelevances().stream().filter(i -> i.getMenuId() != null).collect(Collectors.groupingBy(RelevanceOrderItem::getMenuId));
         menuMap.keySet().forEach(k -> {
             MenuItemScore menuScore = menuItemScoreRepository.findById(k).get();
-            Assert.assertNotNull(menuScore.getValue());
-            Assert.assertEquals(BigDecimal.ZERO, menuScore.getValue());
+            Assert.assertNotNull(menuScore.getRelevance());
+            Assert.assertEquals(BigDecimal.ZERO, menuScore.getRelevance());
         });
     }
 
