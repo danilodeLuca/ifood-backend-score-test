@@ -86,15 +86,22 @@ public class OrderRelevanceServiceTest extends BaseTest {
     @Test
     public void testexpireOrdersBeforeDate() {
         Order order = picker.pick();
-        Date dateOrder = DateTime.now().minusDays(32).toDate();
-        order.setConfirmedAt(dateOrder);
+        order.setConfirmedAt(DateTime.now().minusDays(32).toDate());
         service.checkoutOrderAndCalculateRelevance(order);
+
+        Order order2 = picker.pick();
+        order2.setConfirmedAt(DateTime.now().minusDays(26).toDate());
+        service.checkoutOrderAndCalculateRelevance(order2);
 
         Date dateToExpire = DateTime.now().minusDays(30).toDate();
 
         service.expireOrdersBeforeDate(dateToExpire);
 
-        RelevanceOrder orderSaved = relevanceOrderRepository.findById(order.getUuid()).get();
-        Assert.assertTrue(orderSaved.isExpired());
+        RelevanceOrder orderSaved1 = relevanceOrderRepository.findById(order.getUuid()).get();
+        Assert.assertTrue(orderSaved1.isExpired());
+
+        RelevanceOrder orderSaved2 = relevanceOrderRepository.findById(order2.getUuid()).get();
+        Assert.assertFalse(orderSaved2.isExpired());
+        Assert.assertTrue(orderSaved2.isCheckout());
     }
 }
