@@ -2,6 +2,7 @@
 package ifood.score.order;
 
 import ifood.score.config.BaseTest;
+import ifood.score.handlers.OrderJmsHandler;
 import ifood.score.mock.generator.order.OrderPicker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,16 +31,18 @@ public class OrderCheckoutTest extends BaseTest {
 
     @Autowired
     private JmsTemplate jmsTemplate;
+    @Autowired
+    private OrderJmsHandler orderJmsHandler;
 
     private Collection<UUID> cancelantionListIds = new ArrayList<>();
 
     @Test
     public void testQueues() throws InterruptedException {
         Order order = picker.pick();
-        jmsTemplate.convertAndSend(cancelQueue, order.getUuid());
+        orderJmsHandler.sendMessage(cancelQueue, order.getUuid());
 
         Order order2 = picker.pick();
-        jmsTemplate.convertAndSend(checkoutQueue, order2);
+        orderJmsHandler.sendMessage(checkoutQueue, order2);
 
         boolean hasMessages = true;
         int count = 0;

@@ -1,5 +1,6 @@
 package ifood.score.config;
 
+import ifood.score.handlers.OrderJmsErrorHandler;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +45,7 @@ public class JmsConfiguration {
             DefaultJmsListenerContainerFactoryConfigurer configurer) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setMessageConverter(messageConverter());
+        factory.setErrorHandler(new OrderJmsErrorHandler());
         configurer.configure(factory, connectionFactory);
         return factory;
     }

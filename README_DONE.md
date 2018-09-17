@@ -39,6 +39,9 @@ Task developed:
     JMS cancel-order
 ```
 
+# JMS Queues
+* There is a JMS Handler to threat if a queue has problems, if some error happens will save the queue information in OrderJmsError Document
+
 We also would like you to check our module `score-order-generator` and give us a overview about our choices regarding:
 * Design Pattens
 * Data Structures

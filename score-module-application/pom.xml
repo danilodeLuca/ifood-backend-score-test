@@ -42,6 +42,14 @@
             <version>1.12.4</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
+
         <!-- Modules -->
         <dependency>
             <groupId>ifood</groupId>

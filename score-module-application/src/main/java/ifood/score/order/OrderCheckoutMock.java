@@ -1,5 +1,6 @@
 package ifood.score.order;
 
+import ifood.score.handlers.OrderJmsHandler;
 import ifood.score.mock.generator.order.OrderPicker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +20,7 @@ import static ifood.score.mock.generator.RandomishPicker._int;
 public class OrderCheckoutMock {
 
     @Autowired
-    private JmsTemplate jmsTemplate;
+    private OrderJmsHandler orderJmsHandler;
 
     private ConcurrentLinkedQueue<UUID> cancellantionQueue = new ConcurrentLinkedQueue<>();
 
@@ -38,7 +39,7 @@ public class OrderCheckoutMock {
             if (_int(0, 20) % 20 == 0) {
                 cancellantionQueue.add(order.getUuid());
             }
-            jmsTemplate.convertAndSend(checkoutQueue, order);
+            orderJmsHandler.sendMessage(checkoutQueue, order);
         });
     }
 
@@ -47,7 +48,7 @@ public class OrderCheckoutMock {
         IntStream.range(1, _int(2, cancellantionQueue.size() > 2 ? cancellantionQueue.size() : 2)).forEach(t -> {
             UUID orderUuid = cancellantionQueue.poll();
             if (orderUuid != null) {
-                jmsTemplate.convertAndSend(cancelQueue, orderUuid);
+                orderJmsHandler.sendMessage(cancelQueue, orderUuid);
             }
         });
     }
