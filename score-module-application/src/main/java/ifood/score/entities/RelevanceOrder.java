@@ -50,6 +50,10 @@ public class RelevanceOrder {
         return getRelevances().stream().filter(filter).collect(Collectors.groupingBy(grouping));
     }
 
+    public boolean isExpired() {
+        return RelevanceStatus.EXPIRED.equals(status);
+    }
+
     public enum RelevanceStatus {
         CHECKOUT, CANCELLED, EXPIRED;
     }

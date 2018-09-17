@@ -11,15 +11,13 @@ import ifood.score.order.Order;
 import ifood.score.repositories.CategoryScoreRepository;
 import ifood.score.repositories.MenuItemScoreRepository;
 import ifood.score.repositories.RelevanceOrderRepository;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OrderRelevanceServiceTest extends BaseTest {
@@ -83,6 +81,20 @@ public class OrderRelevanceServiceTest extends BaseTest {
             Assert.assertNotNull(menuScore.getValue());
             Assert.assertEquals(BigDecimal.ZERO, menuScore.getValue());
         });
+    }
 
+    @Test
+    public void testexpireOrdersBeforeDate() {
+        Order order = picker.pick();
+        Date dateOrder = DateTime.now().minusDays(32).toDate();
+        order.setConfirmedAt(dateOrder);
+        service.checkoutOrderAndCalculateRelevance(order);
+
+        Date dateToExpire = DateTime.now().minusDays(30).toDate();
+
+        service.expireOrdersBeforeDate(dateToExpire);
+
+        RelevanceOrder orderSaved = relevanceOrderRepository.findById(order.getUuid()).get();
+        Assert.assertTrue(orderSaved.isExpired());
     }
 }

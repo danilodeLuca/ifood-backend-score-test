@@ -11,10 +11,7 @@ import ifood.score.repositories.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderRelevanceService {
@@ -47,15 +44,32 @@ public class OrderRelevanceService {
         if (orderSaved.isPresent()) {
             RelevanceOrder relevanceOrder = orderSaved.get();
             if (relevanceOrder.isCheckout()) {
-                Map<Category, List<RelevanceOrderItem>> categoryMap = relevanceOrder.getCategoryMapRelevances();
-                new RelevanceProcessor<Category>().cancel(categoryMap, categoryScoreRepository);
-
-                Map<UUID, List<RelevanceOrderItem>> menuIdMap = relevanceOrder.getMenuMapRelevances();
-                new RelevanceProcessor<UUID>().cancel(menuIdMap, menuItemScoreRepository);
+                cancelRelevancesForScore(relevanceOrder);
 
                 relevanceOrder.setStatus(RelevanceOrder.RelevanceStatus.CANCELLED);
                 relevanceOrderRepository.save(relevanceOrder);
             }
+        }
+    }
+
+    private void cancelRelevancesForScore(RelevanceOrder relevanceOrder) {
+        Map<Category, List<RelevanceOrderItem>> categoryMap = relevanceOrder.getCategoryMapRelevances();
+        new RelevanceProcessor<Category>().cancel(categoryMap, categoryScoreRepository);
+
+        Map<UUID, List<RelevanceOrderItem>> menuIdMap = relevanceOrder.getMenuMapRelevances();
+        new RelevanceProcessor<UUID>().cancel(menuIdMap, menuItemScoreRepository);
+    }
+
+    public void expireOrdersBeforeDate(Date date) {
+        List<RelevanceOrder> relevances = relevanceOrderRepository.findByConfirmationDateBeforeAndStatus(date, RelevanceOrder.RelevanceStatus.CHECKOUT);
+
+        if (relevances != null && !relevances.isEmpty()) {
+            relevances.forEach(relevanceOrder -> {
+                cancelRelevancesForScore(relevanceOrder);
+
+                relevanceOrder.setStatus(RelevanceOrder.RelevanceStatus.EXPIRED);
+                relevanceOrderRepository.save(relevanceOrder);
+            });
         }
     }
 
