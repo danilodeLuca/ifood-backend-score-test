@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan
 @EnableJms
 @EnableMongoRepositories
-@EnableReactiveMongoRepositories
+//@EnableReactiveMongoRepositories
 public class Application {
 
 	public static void main(String[] args) throws Exception {

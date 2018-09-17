@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class OrderListener {
 
@@ -16,11 +18,12 @@ public class OrderListener {
             containerFactory = "jmsListenerFactory")
     public void orderCheckout(Order order) {
         System.out.println("Order Received:" + order);
-        orderRelevanceService.calculateOrderRelevance(order);
+        orderRelevanceService.checkoutOrderAndCalculateRelevance(order);
     }
 
     @JmsListener(destination = "${queue.order.cancel.name}", concurrency = "1-50")
-    public void orderCancel(String uuid) {
-        System.out.println("Order cancel: " + uuid);
+    public void orderCancel(String orderId) {
+        System.out.println("#################Order cancel: " + orderId);
+        orderRelevanceService.cancelOrder(orderId.replaceAll("\"", ""));
     }
 }

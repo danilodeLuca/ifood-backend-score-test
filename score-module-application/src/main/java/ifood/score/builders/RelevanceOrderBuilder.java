@@ -3,16 +3,14 @@ package ifood.score.builders;
 import ifood.score.dtos.OrderInfoDTO;
 import ifood.score.entities.RelevanceCalculator;
 import ifood.score.entities.RelevanceOrder;
+import ifood.score.entities.RelevanceOrderItem;
 import ifood.score.exceptions.NoItemsInOrderException;
 import ifood.score.menu.Category;
 import ifood.score.order.Item;
 import ifood.score.order.Order;
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -47,8 +45,18 @@ public class RelevanceOrderBuilder {
 
     public RelevanceOrder getRelevanceOrder() {
         RelevanceOrder relevanceOrder = new RelevanceOrder();
-        relevanceOrder.setConfirmationDate(order.getConfirmedAt());
         relevanceOrder.setOrderId(order.getUuid());
+        relevanceOrder.setConfirmationDate(order.getConfirmedAt());
+        List<RelevanceOrderItem> relevances = new ArrayList<>();
+        mapCategoryRelevance.forEach((key, value) -> {
+            relevances.add(RelevanceOrderItem.fromCategory(key, value));
+        });
+
+        mapMenuRelevance.forEach((key, value) -> {
+            relevances.add(RelevanceOrderItem.fromMenu(key, value));
+        });
+
+        relevanceOrder.setRelevances(relevances);
         return relevanceOrder;
     }
 

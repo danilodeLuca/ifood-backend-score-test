@@ -18,6 +18,9 @@ public class RelevanceOrderItem {
 
     private BigDecimal value;
 
+    private RelevanceOrderItem() {
+    }
+
     private RelevanceOrderItem(Category id, BigDecimal calcRelevance) {
         this.category = id;
         this.value = calcRelevance;

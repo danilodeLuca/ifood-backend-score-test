@@ -2,9 +2,7 @@ package ifood.score.services;
 
 import ifood.score.config.BaseTest;
 import ifood.score.entities.CategoryScore;
-import ifood.score.entities.MenuItemScore;
 import ifood.score.exceptions.CategoryScoreNotFoundException;
-import ifood.score.exceptions.MenuItemScoreNotFoundException;
 import ifood.score.menu.Category;
 import ifood.score.repositories.CategoryScoreRepository;
 import org.junit.Assert;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.UUID;
 
 public class CategoryScoreServicesTest extends BaseTest {
 

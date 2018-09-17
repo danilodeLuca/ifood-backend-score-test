@@ -1,11 +1,10 @@
 package ifood.score.repositories;
 
 import ifood.score.entities.MenuItemScore;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface MenuItemScoreRepository extends MongoRepository<MenuItemScore, UUID> {
+public interface MenuItemScoreRepository extends ScoreRepository<MenuItemScore, UUID> {
 }

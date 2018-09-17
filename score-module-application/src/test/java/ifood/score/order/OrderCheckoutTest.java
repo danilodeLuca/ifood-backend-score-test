@@ -1,6 +1,7 @@
 
 package ifood.score.order;
 
+import ifood.score.config.BaseTest;
 import ifood.score.mock.generator.order.OrderPicker;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,11 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-public class OrderCheckoutTest {
+public class OrderCheckoutTest extends BaseTest {
 
     @Value("${queue.order.checkout.name}")
     private String checkoutQueue;
@@ -53,6 +50,7 @@ public class OrderCheckoutTest {
             } else {
                 System.out.println("woops some messages were not completed");
             }
+            count++;
             Thread.sleep(2 * 1000L);
         } while (hasMessages);
     }

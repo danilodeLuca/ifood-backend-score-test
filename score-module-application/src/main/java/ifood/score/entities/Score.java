@@ -12,8 +12,6 @@ public abstract class Score<T> {
     @Id
     protected T id;
 
-    protected List<RelevanceCalculator> relevances;
-
     protected BigDecimal value;
 
     protected Integer quantityItems;
@@ -24,17 +22,39 @@ public abstract class Score<T> {
         this.quantityItems = 0;
     }
 
-    public void composeWith(RelevanceCalculator relevance) {
-        BigDecimal newTotal = getTotalRelevances().add(relevance.calcRelevance());
+    public void composeWith(List<RelevanceOrderItem> relevances) {
+        relevances.forEach(item -> {
+            composeWith(item);
+        });
+    }
+
+    private void composeWith(RelevanceOrderItem item) {
+        BigDecimal newTotal = getTotalRelevances().add(item.getValue());
+        quantityItems++;
         recalculate(newTotal);
     }
 
     private void recalculate(BigDecimal newTotal) {
-        quantityItems++;
-        this.value = newTotal.divide(BigDecimal.valueOf(quantityItems), RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+        if (quantityItems > 0)
+            this.value = newTotal.divide(BigDecimal.valueOf(quantityItems), RelevanceCalculator.RELEVANCE_SCALE, RelevanceCalculator.ROUND_MODE);
+        else {
+            this.value = BigDecimal.ZERO;
+        }
     }
 
     public BigDecimal getTotalRelevances() {
         return value.multiply(BigDecimal.valueOf(quantityItems));
+    }
+
+    public void decomposeWith(List<RelevanceOrderItem> values) {
+        values.forEach(item -> {
+            decomposeWith(item);
+        });
+    }
+
+    public void decomposeWith(RelevanceOrderItem item) {
+        BigDecimal newTotal = getTotalRelevances().subtract(item.getValue());
+        quantityItems--;
+        recalculate(newTotal);
     }
 }
