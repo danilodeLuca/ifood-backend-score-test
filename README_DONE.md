@@ -50,12 +50,13 @@ So, we can give insights to our restaurants and better offers to our consumers.
 Choose mongodb because all of its "pros" and the model designed: document oriented, no joins, heterogeneous Data, some data representation as JSON, High availability, High scalability.
 Ofcourse i cound choose Postgrees since it could provide all the "pros" of mongo but "document oriented".
 
-#Postman
+# Postman
 You can import some request examples in Postman:
 ```
     env_setup/postman-collections.json
 ```
 
-#What could be better?
+# What could be better?
 * I think spring-cloud-contract is awesome for microservices architecture, i think it could be implemented in this case if used in this architecture
 * I would provide different modules for REST APIs and Background tasks, in this way that would be easier to horizontally scale by its modules needed.
+* Probally will happens some concurrency problems(with mongo saving...) while running the score, one possible workaround of this issue is to create a scheduled task to recalculate the scores. 
