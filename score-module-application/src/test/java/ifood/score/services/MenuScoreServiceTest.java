@@ -4,11 +4,11 @@ import ifood.score.config.BaseTest;
 import ifood.score.entities.MenuItemScore;
 import ifood.score.exceptions.MenuItemScoreNotFoundException;
 import ifood.score.repositories.MenuItemScoreRepository;
-import ifood.score.utils.MathUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -50,7 +50,7 @@ public class MenuScoreServiceTest extends BaseTest {
         MenuItemScore menuItemScoreById = service.findMenuItemScoreById(id);
         Assert.assertEquals(BigDecimal.valueOf(100), menuItemScoreById.getRelevance());
 
-        List<MenuItemScore> menuItemScores = service.scoreAbove(BigDecimal.valueOf(40));
+        List<MenuItemScore> menuItemScores = service.scoreAbove(BigDecimal.valueOf(40), Pageable.unpaged());
         Assert.assertEquals(1, menuItemScores.size());
     }
 
