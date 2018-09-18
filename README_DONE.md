@@ -58,4 +58,4 @@ You can import some request examples in Postman:
 
 #What could be better?
 * I think spring-cloud-contract is awesome for microservices architecture, i think it could be implemented in this case if used in this architecture
-* i would provide different modules for REST APIs and Background tasks.
+* I would provide different modules for REST APIs and Background tasks, in this way that would be easier to horizontally scale by its modules needed.
