@@ -9,7 +9,7 @@ docker-compose -f env_setup/docker-compose.yml rm -f
 docker rmi -f backend-danilo || true
 
 ## build projeto
-mvn clean install
+sh mvnw clean install
 if [ "$?" -ne 0 ]; then
     echo "Build failed! Exiting....";
     exit 1;
