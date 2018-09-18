@@ -40,7 +40,6 @@ public class MenuScoreServiceTest extends BaseTest {
     }
 
     @Test
-    @Ignore //With embedded mongo it does not work well
     public void testFindAbove() {
         UUID id = UUID.randomUUID();
         MenuItemScore menu = new MenuItemScore(id);
