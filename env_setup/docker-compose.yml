@@ -13,9 +13,8 @@ activemq:
     ACTIVEMQ_ADMIN_LOGIN: admin
     ACTIVEMQ_ADMIN_PASSWORD: nimda
 mongodb:
+  container_name: mongodb
   image: mongo:latest
-  container_name: "mongodb"
-  hostname: localhost
   environment:
     - MONGO_DATA_DIR=/data/db
     - MONGO_LOG_DIR=/dev/null

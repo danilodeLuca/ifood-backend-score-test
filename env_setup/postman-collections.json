@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "3ff7d53d-c86b-46c5-863e-ddd6feab48c0",
+		"name": "score-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "menu-findId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/menus/88879e0d-1b85-4acf-a801-a52d19cfcab5/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menus",
+						"88879e0d-1b85-4acf-a801-a52d19cfcab5",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "menu-score-above",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/menus/score/above/50.01?page=0&size=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menus",
+						"score",
+						"above",
+						"50.01"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "menu-score-bellow",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/menus/score/bellow/19.96",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menus",
+						"score",
+						"bellow",
+						"19.96"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category-findId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/categories/ITALIAN/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories",
+						"ITALIAN",
+						"score"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category-score-above",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/categories/score/above/50.01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories",
+						"score",
+						"above",
+						"50.01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category-score-bellow",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/categories/score/bellow/50.01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories",
+						"score",
+						"bellow",
+						"50.01"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

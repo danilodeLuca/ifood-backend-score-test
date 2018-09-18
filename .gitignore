@@ -3,7 +3,7 @@
 .classpath
 target
 env_setup/data*
-
+data*
 ### IntelliJ IDEA ###
 .idea
 *.iws
