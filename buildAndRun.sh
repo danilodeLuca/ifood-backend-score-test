@@ -1,12 +1,12 @@
 #!/bin/bash -e
 
 #Remove containers created earlier
-docker stop ifood/backend-danilo || true
+docker stop backend-danilo || true
 
 docker-compose -f env_setup/docker-compose.yml stop
 docker-compose -f env_setup/docker-compose.yml rm -f
 
-docker rmi -f ifood/backend-danilo || true
+docker rmi -f backend-danilo || true
 
 ## build projeto
 mvn clean install
@@ -22,4 +22,4 @@ docker-compose -f env_setup/docker-compose.yml up -d --force-recreate
 docker build -t ifood/backend-danilo score-module-application/
 
 ## Run Image
-docker run -p 8080:8080 -d --network=host ifood/backend-danilo
+docker run -p 8080:8080 -d --network=host --name backend-danilo ifood/backend-danilo
